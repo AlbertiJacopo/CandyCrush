@@ -47,14 +47,15 @@ public class GridManager : MonoBehaviour
             {
                 List<Sprite> possibleSprites = new List<Sprite>(Sprites);
 
-                //Choose what sprite to use for this cell
+                //Choose what sprite to not use for this cell and removes it from the "options"
+                //check on the left tile
                 Sprite left1 = GetSpriteAt(column - 1, row);
                 Sprite left2 = GetSpriteAt(column - 2, row);
                 if (left2 != null && left1 == left2)
                 {
                     possibleSprites.Remove(left1);
                 }
-
+                //check on the bottom tile
                 Sprite down1 = GetSpriteAt(column, row - 1);
                 Sprite down2 = GetSpriteAt(column, row - 2);
                 if (down2 != null && down1 == down2)
@@ -62,6 +63,7 @@ public class GridManager : MonoBehaviour
                     possibleSprites.Remove(down1);
                 }
 
+                //instantiate a empty gameobject and assign a sprite
                 GameObject tile = Instantiate(TilePrefab, new Vector3(x, 0, y), Quaternion.identity, transform);
                 SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
                 renderer.sprite = Sprites[Random.Range(0, Sprites.Count)];
