@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GridManager : MonoBehaviour
+public class GridManager0 : MonoBehaviour
 {
     [Tooltip("Interchangeable sprites of the object")]
     public List<Sprite> Sprites = new List<Sprite>();
@@ -19,7 +19,7 @@ public class GridManager : MonoBehaviour
     [Tooltip("Max number of columns")]
     public int maxColumn;
     private Grid m_GridData;
-    public Dictionary<Vector2Int, TileData> mapTiles = new Dictionary<Vector2Int, TileData>();
+    public Dictionary<Vector2Int, TileData0> mapTiles = new Dictionary<Vector2Int, TileData0>();
 
     private void Awake()
     {

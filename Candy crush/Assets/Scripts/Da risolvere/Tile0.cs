@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IPointerClickHandler
+public class Tile0 : MonoBehaviour, IPointerClickHandler
 {
-    public TileData data;
+    public TileData0 data;
 
-    public void Initialize(GridManager gridM, int rowInit, int columnInit)
+    public void Initialize(GridManager0 gridM, int rowInit, int columnInit)
     {
-        data = new TileData(gridM, rowInit, columnInit);
+        data = new TileData0(gridM, rowInit, columnInit);
     }
 
     public void OnPointerClick(PointerEventData eventData)
