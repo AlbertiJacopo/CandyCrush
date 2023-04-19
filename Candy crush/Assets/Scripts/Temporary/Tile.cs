@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour
     //position of this tile
     public Vector2Int Position;
 
+    // Start is called before the first frame update
     private void Start()
     {
         Renderer = GetComponent<SpriteRenderer>();
@@ -48,7 +49,7 @@ public class Tile : MonoBehaviour
             //swap position with other adiacent tiles
             if (Vector2Int.Distance(selected.Position, Position) == 1)
             {
-                GridManager.Instance.SwapTiles(Position, selected.Position);
+                GridManager.Instance.TilesSwap(Position, selected.Position);
                 selected = null;
             }
 

@@ -30,13 +30,13 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         Grid = new GameObject[GridDimension, GridDimension];
-        InitGrid();
+        InstanceGrid();
     }
 
     /// <summary>
     /// Set up the grid and manage the tiles
     /// </summary>
-    void InitGrid()
+    void InstanceGrid()
     {
         //creates the grid
         Vector3 positionOffset = transform.position - new Vector3(GridDimension * Distance / 2.0f, GridDimension * Distance / 2.0f, 0);
@@ -51,8 +51,8 @@ public class GridManager : MonoBehaviour
                 List<Sprite> possibleSprites = new List<Sprite>(Sprites);
 
                 //Choose what sprite to use for this cell
-                Sprite left1 = GetSpriteAt(column - 1, row);
-                Sprite left2 = GetSpriteAt(column - 2, row);
+                Sprite left1 = GetSprite(column - 1, row);
+                Sprite left2 = GetSprite(column - 2, row);
                 //remove the sprite on the second list to avoid accidential matches
                 if (left2 != null && left1 == left2)
                 {
@@ -60,8 +60,8 @@ public class GridManager : MonoBehaviour
                 }
 
                 //do the same thing but instead of checking the tiles on the left it checks the ones down
-                Sprite down1 = GetSpriteAt(column, row - 1);
-                Sprite down2 = GetSpriteAt(column, row - 2);
+                Sprite down1 = GetSprite(column, row - 1);
+                Sprite down2 = GetSprite(column, row - 2);
                 if (down2 != null && down1 == down2)
                 {
                     possibleSprites.Remove(down1);
@@ -93,7 +93,7 @@ public class GridManager : MonoBehaviour
     /// <param name="column"></param>
     /// <param name="row"></param>
     /// <returns></returns>
-    Sprite GetSpriteAt(int column, int row)
+    Sprite GetSprite(int column, int row)
     {
         if (column < 0 || column >= GridDimension
             || row < 0 || row >= GridDimension)
@@ -108,7 +108,7 @@ public class GridManager : MonoBehaviour
     /// </summary>
     /// <param name="tile1Position"></param>
     /// <param name="tile2Position"></param>
-    public void SwapTiles(Vector2Int tile1Position, Vector2Int tile2Position)
+    public void TilesSwap(Vector2Int tile1Position, Vector2Int tile2Position)
     {
 
         //get the sprite of the first tile
@@ -141,7 +141,7 @@ public class GridManager : MonoBehaviour
     /// <param name="column"></param>
     /// <param name="row"></param>
     /// <returns></returns>
-    SpriteRenderer GetSpriteRendererAt(int column, int row)
+    SpriteRenderer GetRenderer(int column, int row)
     {
         if (column < 0 || column >= GridDimension
              || row < 0 || row >= GridDimension)
@@ -165,10 +165,10 @@ public class GridManager : MonoBehaviour
         {
             for (int column = 0; column < GridDimension; column++)
             {
-                SpriteRenderer current = GetSpriteRendererAt(column, row);
+                SpriteRenderer current = GetRenderer(column, row);
 
                 //The horizontal matching tiles (if it does exist)
-                List<SpriteRenderer> horizontalMatches = FindColumnMatchForTile(column, row, current.sprite); 
+                List<SpriteRenderer> horizontalMatches = FindMatchColumn(column, row, current.sprite); 
                 if (horizontalMatches.Count >= 2)
                 {
                     matchedTiles.UnionWith(horizontalMatches);
@@ -176,7 +176,7 @@ public class GridManager : MonoBehaviour
                 }
 
                 //The vertical matching tiles (if it does exist)
-                List<SpriteRenderer> verticalMatches = FindRowMatchForTile(column, row, current.sprite);
+                List<SpriteRenderer> verticalMatches = FindMatchRow(column, row, current.sprite);
                 if (verticalMatches.Count >= 2)
                 {
                     matchedTiles.UnionWith(verticalMatches);
@@ -199,13 +199,13 @@ public class GridManager : MonoBehaviour
     /// <param name="row"></param>
     /// <param name="sprite"></param>
     /// <returns></returns>
-    List<SpriteRenderer> FindColumnMatchForTile(int col, int row, Sprite sprite)
+    List<SpriteRenderer> FindMatchColumn(int col, int row, Sprite sprite)
     {
         List<SpriteRenderer> result = new List<SpriteRenderer>();
         for (int i = col + 1; i < GridDimension; i++)
         {
             //check if the other sprites on the column are the same
-            SpriteRenderer nextColumn = GetSpriteRendererAt(i, row);
+            SpriteRenderer nextColumn = GetRenderer(i, row);
             if (nextColumn.sprite != sprite)
             {
                 break;
@@ -222,13 +222,13 @@ public class GridManager : MonoBehaviour
     /// <param name="row"></param>
     /// <param name="sprite"></param>
     /// <returns></returns>
-    List<SpriteRenderer> FindRowMatchForTile(int col, int row, Sprite sprite)
+    List<SpriteRenderer> FindMatchRow(int col, int row, Sprite sprite)
     {
         List<SpriteRenderer> result = new List<SpriteRenderer>();
         for (int i = row + 1; i < GridDimension; i++)
         {
             //check if the other sprites on the row are the same
-            SpriteRenderer nextRow = GetSpriteRendererAt(col, i);
+            SpriteRenderer nextRow = GetRenderer(col, i);
             if (nextRow.sprite != sprite)
             {
                 break;
