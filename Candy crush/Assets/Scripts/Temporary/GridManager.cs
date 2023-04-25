@@ -108,7 +108,7 @@ public class GridManager : MonoBehaviour
     /// </summary>
     /// <param name="tile1Position"></param>
     /// <param name="tile2Position"></param>
-    public void TilesSwap(Vector2Int tile1Position, Vector2Int tile2Position)
+    public void SpriteSwap(Vector2Int tile1Position, Vector2Int tile2Position)
     {
 
         //get the sprite of the first tile

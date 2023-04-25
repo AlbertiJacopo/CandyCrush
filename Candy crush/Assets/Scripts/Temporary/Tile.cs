@@ -47,14 +47,14 @@ public class Tile : MonoBehaviour
             selected.Unselect();
 
             //swap position with other adiacent tiles
-            if (Vector2Int.Distance(selected.Position, Position) == 1)
+            if (Vector2.Distance(selected.Position, Position) <= 1.2)
             {
-                GridManager.Instance.TilesSwap(Position, selected.Position);
+                GridManager.Instance.SpriteSwap(Position, selected.Position);
                 selected = null;
             }
 
             //if it's not adiacent the selected tile remains still
-            else
+            else if (Vector2.Distance(selected.Position, Position) > 1.2)
             {
                 selected = this;
                 Select();
